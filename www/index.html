@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+ -->
+
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+       <!--  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/> -->
+        <title>Hello World</title>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper" id="index">
+                <a href="#" class="brand-logo">Push Demo</a>
+            </div>
+        </nav>
+
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card darken-1">
+              <div class="col-md-6">
+                <span>Registration ID</span>
+                <p id="regId">Requested</p>
+
+                <!-- <input type="hidden" name="deviceId" id="regId"  value=regId  /> -->
+              </div>
+              <div class="col-md-6">
+              <button>Send an HTTP POST request to a page and get the result back</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="cards"></div>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+         <script type="text/javascript" src="js/index.js"></script>
+
+     <!--  <script type="text/javascript">
+          
+           $(document).ready(function(){ 
+
+
+/*
+             $(function() {
+         $("#index").validate({
+            rules: {
+               servertoken: {           
+               }  }
+           }); */
+
+            $("button").click(function(){
+
+            var regId=window.localStorage.getItem("regtoken");
+
+          //  submitHandler: function(regId) { 
+
+
+
+               /*var regId = $("#regId").val();
+                var servertoken = '&regId=' + regId ;*/
+
+                var servertoken = regId ;
+
+            $.ajax({
+        type: 'POST',
+         data: servertoken,               // data: postData+'&amp;lid='+landmarkID,
+        url: 'http://192.168.0.100/pushnotification/regid.php',
+        success: function(data){
+            console.log(data);
+            alert('Your comment was successfully added...'+ servertoken);
+        },
+        error: function(){
+            console.log(data);
+            alert('There was an error adding your comment');
+        }
+    });
+        /*function(data,status){
+            alert("Data: " + data + "\nStatus: " + status);
+        });*/
+    /*});*/
+});
+});
+       
+      </script> -->
+
+        <!--  <script src="http://jsconsole.com/remote.js?swati"></script> -->
+       <!--  <script type="text/javascript" src="js/materialize.min.js"></script> -->
+       
+
+
+    </body>
+</html>
